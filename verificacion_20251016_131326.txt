@@ -1,0 +1,170 @@
+==========================================
+VERIFICACIÓN DE COMPONENTES EN EC2
+==========================================
+
+1. INFORMACIÓN DEL SISTEMA
+-------------------------------------------
+Sistema operativo:
+PRETTY_NAME="Amazon Linux 2"
+
+Kernel:
+4.14.355-280.695.amzn2.x86_64
+
+Arquitectura:
+x86_64
+
+2. PYTHON
+-------------------------------------------
+Versiones de Python instaladas:
+/usr/bin/python
+Python 2.7.18
+/usr/bin/python3
+Python 3.7.16
+
+pip instalado:
+/usr/bin/pip3
+pip 20.2.2 from /usr/lib/python3.7/site-packages/pip (python 3.7)
+
+Entornos virtuales:
+No se encontraron entornos virtuales en /opt/
+No se encontraron entornos virtuales en /home/ec2-user/
+
+3. AWS CLI
+-------------------------------------------
+/usr/local/bin/aws
+aws-cli/2.31.13 Python/3.13.7 Linux/4.14.355-280.695.amzn2.x86_64 exe/x86_64.amzn.2
+
+Configuración AWS CLI:
+NAME       : VALUE                    : TYPE             : LOCATION
+profile    : <not set>                : None             : None
+access_key : ****************TDKK     : iam-role         : 
+secret_key : ****************1k/S     : iam-role         : 
+region     : eu-west-1                : imds             : 
+
+IAM Role de la instancia:
+rag-system-production-RAGEC2Role-hawdzi5Lrv3d
+4. GIT
+-------------------------------------------
+/usr/bin/git
+git version 2.47.3
+
+5. APLICACIONES Y DIRECTORIOS
+-------------------------------------------
+Directorio /opt/:
+total 0
+drwxr-xr-x  5 root     root      45 Oct 13 11:57 .
+dr-xr-xr-x 19 root     root     288 Oct 13 11:57 ..
+drwxr-xr-x  4 root     root      33 Sep 24 08:17 aws
+drwxr-xr-x  2 ec2-user ec2-user  28 Oct 13 11:57 rag-system
+drwxr-xr-x  2 root     root       6 Aug 16  2018 rh
+
+Directorio /home/ec2-user/:
+total 81392
+drwx------  8 ec2-user ec2-user      315 Oct 16 11:13 .
+drwxr-xr-x  3 root     root           22 Oct 13 11:57 ..
+-rw-------  1 ec2-user ec2-user    38506 Oct 16 09:28 .bash_history
+-rw-r--r--  1 ec2-user ec2-user       18 Jul 15  2020 .bash_logout
+-rw-r--r--  1 ec2-user ec2-user      193 Jul 15  2020 .bash_profile
+-rw-r--r--  1 ec2-user ec2-user      231 Jul 15  2020 .bashrc
+drwxrwxr-x  3 ec2-user ec2-user       17 Oct 13 14:54 .cache
+drwx------  4 ec2-user ec2-user       28 Oct 15 17:02 .local
+drwx------  2 ec2-user ec2-user       48 Oct 16 11:11 .ssh
+-rw-------  1 ec2-user ec2-user    12824 Oct 16 11:11 .viminfo
+-rw-rw-r--  1 ec2-user ec2-user 83251493 Oct 15 21:41 back-up.tar.gz
+drwxrwxr-x  2 ec2-user ec2-user     4096 Oct 15 21:44 rag-evaluation
+drwxrwxr-x  2 ec2-user ec2-user      141 Oct 13 14:54 rag-setup
+drwxrwxr-x 10 ec2-user ec2-user      131 Oct 16 06:53 rag-system
+-rwxrwxr-x  1 ec2-user ec2-user     2341 Oct 13 14:44 remote_setup.sh
+-rw-rw-r--  1 ec2-user ec2-user     1721 Oct 16 11:13 verificacion_20251016_131326.txt
+-rwxr-xr-x  1 ec2-user ec2-user     5749 Oct 16 11:13 verificar_ec2_existente.sh
+
+Aplicaciones relacionadas con 'incident' o 'triage':
+
+6. SERVICIOS SYSTEMD
+-------------------------------------------
+Servicios relacionados con incident/triage:
+No se encontraron servicios relacionados
+
+Servicios habilitados:
+No se encontraron servicios habilitados relacionados
+
+7. PAQUETES PYTHON GLOBALES
+-------------------------------------------
+Paquetes relacionados con LangChain, Bedrock, OpenSearch:
+boto3              1.33.13
+opensearch-py      2.5.0
+
+8. VARIABLES DE ENTORNO
+-------------------------------------------
+Variables AWS:
+No se encontraron variables de entorno AWS
+
+9. RECURSOS AWS EN eu-west-1
+-------------------------------------------
+RDS Instances:
+-----------------------------------------------------------------------------------------------------
+|                                        DescribeDBInstances                                        |
++------------------------------------------------------+------------+--------------------+----------+
+|  bedrock-usage-mysql                                 |  available |  mysql             |  8.0.43  |
+|  incident-analyzer-dev-auroradbinstance-lat77ygsdw4q |  available |  aurora-postgresql |  17.4    |
+|  piloto-plan-pruebas-aurora-instance                 |  available |  aurora-postgresql |  17.4    |
+|  rag-postgres                                        |  available |  postgres          |  15.7    |
+|  test-plan-generator-db                              |  available |  mysql             |  8.0.43  |
++------------------------------------------------------+------------+--------------------+----------+
+
+OpenSearch Serverless Collections:
+No se pudo consultar OpenSearch Serverless (verificar permisos IAM)
+
+S3 Buckets (filtrado por 'incident'):
+2025-10-01 21:09:49 incident-analyzer-dev-incidents-dev
+
+10. LOGS Y CONFIGURACIONES
+-------------------------------------------
+Logs en /var/log relacionados:
+No se encontraron logs relacionados
+
+Archivos de configuración en /etc:
+No se encontraron configuraciones relacionadas
+
+11. PROCESOS EN EJECUCIÓN
+-------------------------------------------
+Procesos Python:
+ec2-user  2076  0.0  0.9 339272 36416 ?        Ss   Oct15   0:10 /usr/bin/python3 /opt/rag-system/test_server.py
+
+12. PUERTOS EN ESCUCHA
+-------------------------------------------
+Puertos TCP en escucha:
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      2076/python3        
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN      -                   
+tcp6       0      0 :::111                  :::*                    LISTEN      -                   
+tcp6       0      0 :::22                   :::*                    LISTEN      -                   
+
+13. ESPACIO EN DISCO
+-------------------------------------------
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        1.9G     0  1.9G   0% /dev
+tmpfs           1.9G     0  1.9G   0% /dev/shm
+tmpfs           1.9G  496K  1.9G   1% /run
+tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup
+/dev/nvme0n1p1  8.0G  3.1G  5.0G  38% /
+tmpfs           388M     0  388M   0% /run/user/1000
+
+14. MEMORIA
+-------------------------------------------
+              total        used        free      shared  buff/cache   available
+Mem:           3.8G        159M        2.6G        496K        1.0G        3.4G
+Swap:            0B          0B          0B
+
+==========================================
+VERIFICACIÓN COMPLETADA
+==========================================
+
+PRÓXIMOS PASOS:
+1. Revisar los resultados de esta verificación
+2. Identificar qué componentes ya están instalados
+3. Actualizar la guía de despliegue para omitir instalaciones duplicadas
+4. Proceder con la instalación solo de componentes faltantes
