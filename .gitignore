@@ -1,0 +1,56 @@
+# Archivos de sistema
+.DS_Store
+~$*
+
+# Archivos Excel temporales
+*.tmp
+*.temp
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Logs
+*.log
+
+# Entornos virtuales Python
+venv/
+env/
+.venv/
+
+# Archivos de configuración local
+.env
+.env.local
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de AWS
+.aws/
+credentials
+config
