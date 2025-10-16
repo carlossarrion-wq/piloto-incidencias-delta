@@ -13,12 +13,14 @@ Antes de proceder con el despliegue, necesitamos verificar qué componentes ya e
 ## Paso 1: Conectar a la Instancia EC2
 
 ```bash
-# Opción 1: SSH con clave privada
-ssh -i /path/to/your-key.pem ec2-user@3.252.226.102
+# Opción 1: SSH directo (clave de Cline ya configurada en ~/.ssh/authorized_keys)
+ssh ec2-user@3.252.226.102
 
-# Opción 2: AWS Systems Manager Session Manager (si está configurado)
+# Opción 2: AWS Systems Manager Session Manager
 aws ssm start-session --target i-0aed93266a5823099 --region eu-west-1
 ```
+
+**Nota**: La instancia EC2 ya tiene configurada una clave SSH de Cline en `/home/ec2-user/.ssh/authorized_keys`, por lo que puedes conectar directamente sin especificar `-i`.
 
 ## Paso 2: Copiar el Script de Verificación a la EC2
 
@@ -26,10 +28,10 @@ aws ssm start-session --target i-0aed93266a5823099 --region eu-west-1
 
 ```bash
 # Copiar el script a la EC2
-scp -i /path/to/your-key.pem verificar_ec2_existente.sh ec2-user@3.252.226.102:~/
+scp verificar_ec2_existente.sh ec2-user@3.252.226.102:~/
 
 # Verificar que se copió correctamente
-ssh -i /path/to/your-key.pem ec2-user@3.252.226.102 "ls -lh verificar_ec2_existente.sh"
+ssh ec2-user@3.252.226.102 "ls -lh verificar_ec2_existente.sh"
 ```
 
 ## Paso 3: Ejecutar el Script de Verificación
@@ -56,7 +58,7 @@ less verificacion_ec2_*.txt
 
 ```bash
 # Descargar el archivo de resultados
-scp -i /path/to/your-key.pem ec2-user@3.252.226.102:~/verificacion_ec2_*.txt .
+scp ec2-user@3.252.226.102:~/verificacion_ec2_*.txt .
 
 # Verificar que se descargó
 ls -lh verificacion_ec2_*.txt
@@ -162,16 +164,16 @@ Basándonos en los resultados, actualizaremos `GUIA_DESPLIEGUE_AWS_PRODUCCION.md
 
 ```bash
 # 1. Copiar script a EC2
-scp -i /path/to/your-key.pem verificar_ec2_existente.sh ec2-user@3.252.226.102:~/
+scp verificar_ec2_existente.sh ec2-user@3.252.226.102:~/
 
 # 2. Conectar y ejecutar
-ssh -i /path/to/your-key.pem ec2-user@3.252.226.102
+ssh ec2-user@3.252.226.102
 chmod +x verificar_ec2_existente.sh
 ./verificar_ec2_existente.sh > verificacion_$(date +%Y%m%d_%H%M%S).txt 2>&1
 exit
 
 # 3. Descargar resultados
-scp -i /path/to/your-key.pem ec2-user@3.252.226.102:~/verificacion_*.txt .
+scp ec2-user@3.252.226.102:~/verificacion_*.txt .
 
 # 4. Revisar resultados
 cat verificacion_*.txt
