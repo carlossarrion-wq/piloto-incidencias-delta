@@ -1,0 +1,7 @@
+{
+  "commands": [
+    "whoami",
+    "pwd",
+    "ls -la /home/ec2-user"
+  ]
+}

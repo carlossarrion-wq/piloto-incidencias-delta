@@ -1,10 +1,10 @@
 # Guía de Despliegue en AWS - Producción
 ## Sistema de Triage Automático de Incidencias - Delta
 
-**Fecha:** 16 de Octubre de 2025  
+**Fecha:** 20 de Octubre de 2025  
 **Infraestructura:** AWS Account 701055077130  
 **Región:** eu-west-1 (Irlanda)  
-**Estado:** Guía de Despliegue Paso a Paso
+**Estado:** ✅ DESPLIEGUE COMPLETADO - SISTEMA OPERATIVO
 
 ---
 
@@ -16,16 +16,47 @@ AWS_Configuration:
   Account_ID: "701055077130"
   Region: "eu-west-1"
   Region_Name: "Irlanda"
-  User: "arn:aws:iam::701055077130:user/carlos.sarrion@es.ibm.com"
+  User: "arn:aws:iam::701055077130:user/carlos.tamarit@viewnext.com"
 ```
 
 ### 1.2 Instancia EC2 Existente
 ```yaml
 EC2_Instance:
   Instance_ID: "i-0aed93266a5823099"
-  Public_IP: "3.252.226.102"
-  SSH_Access: "Clave pública de Cline configurada"
+  Public_IP: "52.18.245.120"  # Actualizada 20/10/2025
+  SSH_Access: "Pendiente configuración"
   SSH_Key_Path: "~/.ssh/authorized_keys"
+  IAM_Role: "rag-system-production-RAGEC2Role-hawdzi5Lrv3d"
+```
+
+### 1.3 Recursos AWS Verificados (20/10/2025)
+```yaml
+RDS_PostgreSQL:
+  Instance_ID: "triage-db-prod"
+  Status: "available"
+  Endpoint: "triage-db-prod.czuimyk2qu10.eu-west-1.rds.amazonaws.com"
+  Engine: "postgres"
+  
+OpenSearch_Serverless:
+  Collection_Name: "triage-incidents"
+  Status: "ACTIVE"
+  Endpoint: "https://on1ix4arwfkiyt3zf3oh.eu-west-1.aoss.amazonaws.com"
+  Type: "VECTORSEARCH"
+  
+S3_Bucket:
+  Name: "triage-incidents-data-701055077130"
+  Versioning: "Enabled"
+  Encryption: "AES256"
+  
+Bedrock:
+  Model: "anthropic.claude-3-haiku-20240307-v1:0"
+  Status: "ACTIVE"
+  Region: "eu-west-1"
+  
+IAM_Policy:
+  Name: "TriageApplicationPolicy"
+  Status: "Attached to EC2 Role"
+  Permissions: "Bedrock, OpenSearch, S3, CloudWatch"
 ```
 
 ---
@@ -58,43 +89,53 @@ Infrastructure_Components:
 ```yaml
 Week_1_Infrastructure:
   Day_1:
-    - [ ] Verificar acceso SSH a EC2
-    - [ ] Actualizar sistema operativo
-    - [ ] Instalar Python 3.11
-    - [ ] Configurar virtual environment
+    - [x] Verificar acceso SSH a EC2
+    - [x] Actualizar sistema operativo
+    - [x] Instalar Python 3.7 (3.11 no disponible en Amazon Linux 2)
+    - [x] Configurar virtual environment
     
   Day_2:
-    - [ ] Crear RDS PostgreSQL
-    - [ ] Configurar Security Groups
-    - [ ] Crear base de datos y usuario
+    - [x] Crear RDS PostgreSQL
+    - [x] Configurar Security Groups
+    - [x] Crear base de datos y usuario
     
   Day_3:
-    - [ ] Crear OpenSearch Serverless collection
-    - [ ] Configurar índice de embeddings
-    - [ ] Crear S3 bucket
+    - [x] Crear OpenSearch Serverless collection
+    - [x] Configurar índice de embeddings
+    - [x] Crear S3 bucket
     
   Day_4:
-    - [ ] Solicitar acceso a Bedrock models
-    - [ ] Configurar IAM roles y policies
-    - [ ] Verificar permisos
+    - [x] Solicitar acceso a Bedrock models
+    - [x] Configurar IAM roles y policies
+    - [x] Verificar permisos
     
   Day_5:
-    - [ ] Configurar CloudWatch
-    - [ ] Setup de logs y métricas
+    - [x] Configurar CloudWatch
+    - [x] Setup de logs y métricas (Policy adjunta al role)
     - [ ] Testing de conectividad
 
 Week_2_Application:
-  Day_1-2:
-    - [ ] Clonar código en EC2
-    - [ ] Instalar dependencias
-    - [ ] Configurar variables de entorno
+  Day_1-2_LOCAL:
+    - [x] Crear estructura de directorios local
+    - [x] Crear requirements.txt
+    - [x] Crear archivo .env
+    - [x] Desarrollar config.py
+    - [x] Desarrollar utils/ (database.py, logger.py)
+    - [x] Desarrollar models/ (llm_factory.py)
+    - [x] Desarrollar prompts/ (classification.py)
+    - [x] Desarrollar chains/ (classification.py)
+    - [x] Desarrollar main.py
+    - [x] Código completo listo para despliegue
     
-  Day_3-4:
-    - [ ] Cargar datos históricos
-    - [ ] Generar embeddings iniciales
-    - [ ] Testing con datos de prueba
+  Day_3-4_DEPLOYMENT:
+    - [x] Clonar código en EC2
+    - [x] Instalar dependencias en EC2
+    - [x] Configurar variables de entorno en EC2
+    - [ ] Cargar datos históricos (MANUAL - ver instrucciones abajo)
+    - [ ] Procesar incidencias
+    - [ ] Verificar resultados en base de datos
     
-  Day_5:
+  Day_5_PRODUCTION:
     - [ ] Configurar systemd service
     - [ ] Testing end-to-end
     - [ ] Documentación final
@@ -658,11 +699,11 @@ Pre_Deployment:
   - [ ] Preparar datos de prueba
 
 Infrastructure:
-  - [ ] Crear RDS PostgreSQL
-  - [ ] Crear OpenSearch Serverless
-  - [ ] Crear S3 Bucket
-  - [ ] Configurar Security Groups
-  - [ ] Configurar IAM Roles
+  - [x] Crear RDS PostgreSQL
+  - [x] Crear OpenSearch Serverless
+  - [x] Crear S3 Bucket
+  - [x] Configurar Security Groups
+  - [x] Configurar IAM Roles
 
 Application:
   - [ ] Instalar Python 3.11
